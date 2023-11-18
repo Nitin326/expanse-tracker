@@ -39,13 +39,32 @@ export class ExpanseService {
     }
   }
 
-  async findAll(userId:string,Food: string, Transportation: string, Entertainment: string) {
+  async findAll(userId: string, food: string, travel: string, fun: string, lifeStyle: string, other: string) {
     try {
-      const expanses = await this.expanseModel.find({author:userId})
+      // Build a filter object based on provided category parameters
+      const categoryFilter: { category?: string } = {};
+
+      if (food) {
+        categoryFilter.category = 'food';
+      } else if (travel) {
+        categoryFilter.category = 'travel';
+      } else if (fun) {
+        categoryFilter.category = 'fun';
+      } else if (lifeStyle) {
+        categoryFilter.category = 'lifeStyle';
+      } else if (other) {
+        categoryFilter.category = 'other';
+      }
+
+      // Add the author condition to the filter
+      const filter = { ...categoryFilter, author: userId };
+
+      const expenses = await this.expanseModel.find(filter);
+
       return {
         status: 200,
-        message: 'Expanse listed successfully',
-        data: expanses
+        message: 'Expense listed successfully',
+        data: expenses,
       };
     } catch (error) {
       throw new InternalServerErrorException();

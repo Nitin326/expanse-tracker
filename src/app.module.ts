@@ -5,13 +5,15 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { ExpanseModule } from './expanse/expanse.module';
 import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
+import { DashboardModule } from './dashboard/dashboard.module';
 
 @Module({
   imports: [
-    MongooseModule.forRoot(process.env.DB_URL,{dbName: 'exapnse-track'}),
+    MongooseModule.forRoot('mongodb+srv://exapnse-track:DThSUcLlAW8YQKlQ@cluster0.xif31.mongodb.net/',{dbName: 'exapnse-track'}),
     ExpanseModule,
     AuthModule,
-    UserModule
+    UserModule,
+    DashboardModule
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -25,11 +25,6 @@ class CreateUserDto {
   @IsString()
   @IsNotEmpty()
   @ApiProperty()
-  profile_pic: string;
-
-  @IsString()
-  @IsNotEmpty()
-  @ApiProperty()
   password: string;
 }
 

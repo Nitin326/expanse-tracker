@@ -35,14 +35,16 @@ export class ExpanseController {
   }
 
   @Get()
-  @ApiQuery({ name: 'Food', required: false, type: String })
-  @ApiQuery({ name: 'Transportation', required: false, type: String })
-  @ApiQuery({ name: 'Entertainment', required: false, type: String })
-  findAll(@Req() req: Request,@Query('Food') Food: string, @Query('Transportation') Transportation: string,@Query('Entertainment') Entertainment: string,) {
+  @ApiQuery({ name: 'food', required: false, type: String })
+  @ApiQuery({ name: 'travel', required: false, type: String })
+  @ApiQuery({ name: 'fun', required: false, type: String })
+  @ApiQuery({ name: 'lifeStyle', required: false, type: String })
+  @ApiQuery({ name: 'other', required: false, type: String })
+  findAll(@Req() req: Request,@Query('food') Food: string, @Query('travel') Transportation: string,@Query('fun') Entertainment: string,@Query('lifeStyle') lifestyle: string,@Query('other') other: string) {
     const user: any = req.body;
     const userId = user.userId;
     try {
-      return this.expanseService.findAll(userId,Food,Transportation,Entertainment);
+      return this.expanseService.findAll(userId,Food,Transportation,Entertainment,lifestyle,other);
     } catch (error) {
       throw new InternalServerErrorException();
     }
